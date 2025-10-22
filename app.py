@@ -8,7 +8,7 @@ from sklearn.cluster import KMeans # Although we load clusters, keep import for 
 
 # --- Configuration ---
 st.set_page_config(layout="wide", page_title="Superconductor Explorer")
-st.set_option('deprecation.showPyplotGlobalUse', False) # Suppress Pyplot warning
+#st.set_option('deprecation.showPyplotGlobalUse', False) # Suppress Pyplot warning
 
 # --- Load Saved Objects ---
 # Wrap loading in functions with caching for performance

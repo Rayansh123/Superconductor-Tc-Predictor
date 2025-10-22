@@ -98,18 +98,30 @@ st.info(f"This material belongs to **Cluster {material_cluster}** based on SHAP 
 
 
 # --- 2. SHAP Explanation ---
+# --- 2. SHAP Explanation ---
 st.header("Why did the model predict this temperature?")
 st.markdown("The plot below shows which features pushed the prediction **higher** (red arrows) vs **lower** (blue arrows) compared to the average prediction.")
 
-# SHAP Force Plot for the selected instance
-#shap.initjs() # Initialize Javascript visualization library
-st.pyplot(shap.force_plot(
-    expected_value,
-    shap_values_sample[selected_index, :],
-    material_unscaled,
-    matplotlib=True # Use Matplotlib backend for st.pyplot
-), bbox_inches='tight')
+# Generate the SHAP force plot using Matplotlib
+try:
+    # Set show=False so it doesn't try to display immediately
+    force_plot_fig = shap.force_plot(
+        expected_value,
+        shap_values_sample[selected_index, :],
+        material_unscaled,
+        matplotlib=True, # Use Matplotlib backend
+        show=False       # Important: Prevent immediate display
+    )
+    
+    # Check if a figure object was returned (it should be with matplotlib=True)
+    if force_plot_fig is not None:
+        # Explicitly pass the figure to st.pyplot
+        st.pyplot(force_plot_fig, bbox_inches='tight', clear_figure=True)
+    else:
+        st.warning("Could not generate SHAP force plot.")
 
+except Exception as e:
+    st.error(f"An error occurred while generating the SHAP plot: {e}")
 
 # --- 3. Feature Values ---
 st.header("Feature Values")

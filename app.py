@@ -102,7 +102,7 @@ st.header("Why did the model predict this temperature?")
 st.markdown("The plot below shows which features pushed the prediction **higher** (red arrows) vs **lower** (blue arrows) compared to the average prediction.")
 
 # SHAP Force Plot for the selected instance
-shap.initjs() # Initialize Javascript visualization library
+#shap.initjs() # Initialize Javascript visualization library
 st.pyplot(shap.force_plot(
     expected_value,
     shap_values_sample[selected_index, :],
